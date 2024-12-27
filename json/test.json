@@ -1,14 +1,18 @@
 [
   {
-    "task": "Integer urn sometimes mass free author nor ugly ugly always. Duis or but hunger intact."
+    "task": "Integer urn sometimes mass free author nor ugly ugly always. Duis or but hunger intact.",
+    "isComplated": true
   },
   {
-    "task": "Integer urn sometimes mass free author nor ugly ugly always. Duis or but hunger intact."
+    "task": "Integer urn sometimes mass free author nor ugly ugly always. Duis or but hunger intact.",
+    "isComplated": false
   },
   {
-    "task": "Integer urn sometimes mass free author nor ugly ugly always. Duis or but hunger intact."
+    "task": "Integer urn sometimes mass free author nor ugly ugly always. Duis or but hunger intact.",
+    "isComplated": false
   },
   {
-    "task": "Integer urn sometimes mass free author nor ugly ugly always. Duis or but hunger intact."
+    "task": "Integer urn sometimes mass free author nor ugly ugly always. Duis or but hunger intact.",
+    "isComplated": false
   }
 ]
