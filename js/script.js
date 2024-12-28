@@ -14,7 +14,7 @@ const updateTaskList = () => {
   countTask = 0;
   completedTasksValue = 0;
 
-  storageTasksArr.forEach((task) => {
+  storageTasksArr.forEach((taskObj, i) => {
     countTask++;
     createdTasksTotal.innerHTML = countTask;
 
@@ -24,11 +24,14 @@ const updateTaskList = () => {
     const inputCheck = document.createElement("input");
     inputCheck.type = "checkbox";
     inputCheck.classList.add("checkbox");
+    inputCheck.checked = taskObj.completed;
     taskWrapper.appendChild(inputCheck);
+
+    if (taskObj.completed) completedTasksValue++;
 
     const taskP = document.createElement("p");
     taskP.classList.add("task");
-    taskP.textContent = task;
+    taskP.textContent = taskObj.task;
     taskWrapper.appendChild(taskP);
 
     const deleteBtn = document.createElement("button");
@@ -47,7 +50,7 @@ const updateTaskList = () => {
       taskWrapper.classList.add("delete-task");
       
       setTimeout(() => {
-        const taskIndex = storageTasksArr.indexOf(task);
+        const taskIndex = storageTasksArr.indexOf(taskObj);
         if (taskIndex > -1) {
           storageTasksArr.splice(taskIndex, 1);
           localStorage.setItem("Task", JSON.stringify(storageTasksArr));
@@ -58,6 +61,9 @@ const updateTaskList = () => {
     });
 
     inputCheck.addEventListener("change", () => {
+      taskObj.completed = inputCheck.checked;
+      localStorage.setItem("Task", JSON.stringify(storageTasksArr));
+
       if (inputCheck.checked) {
         completedTasksValue++;
       } else {
@@ -69,6 +75,17 @@ const updateTaskList = () => {
     tasksWrapper.appendChild(taskWrapper);
   });
 
+  const checkboxs = document.querySelectorAll(".checkbox");
+  checkboxs.forEach((checkbox, i) => {
+    checkbox.addEventListener("change", ()=> {
+      if (checkbox.checked) {
+        console.log(`Checkbox at index ${i} is now active (checked).`);
+      } else {
+        console.log(`Checkbox at index ${i} is now inactive (unchecked).`);
+      }
+    })
+  })
+
   completedTasks.innerHTML = `${completedTasksValue} of ${countTask}`;
 };
 
@@ -76,7 +93,7 @@ const updateTaskList = () => {
 createTask.addEventListener("click", () => {
   const newTask = inputTask.value.trim();
   if (newTask !== "" && storageTasksArr.length < 5) {
-    storageTasksArr.push(newTask);
+    storageTasksArr.push({ task: newTask, completed: false })
     localStorage.setItem("Task", JSON.stringify(storageTasksArr));
     updateTaskList();
     inputTask.value = "";
@@ -88,13 +105,3 @@ createTask.addEventListener("click", () => {
 });
 
 updateTaskList();
-
-checkboxs.forEach((checkbox, i) => {
-  checkbox.addEventListener("change", ()=> {
-    if (checkbox.checked) {
-      console.log(`Checkbox at index ${i} is now active (checked).`);
-    } else {
-      console.log(`Checkbox at index ${i} is now inactive (unchecked).`);
-    }
-  })
-})
